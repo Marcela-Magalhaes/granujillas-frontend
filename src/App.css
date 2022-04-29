@@ -1,0 +1,25 @@
+.navbar{
+    background-color: rgba(162, 226, 223, 0.397);
+    width: 100%;
+    height: max-content;
+}
+
+.logo{
+    border-radius: 23px;
+    width: 4.5rem;
+    height: 4.5rem;
+}
+
+.btn{
+    border-radius: 28px;
+    
+}
+
+.btn:hover{
+    font-weight: bolder;
+}
+
+footer{
+    background-color: rgba(162, 226, 223, 0.397);
+    font-weight: 500;
+}
