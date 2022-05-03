@@ -1,15 +1,25 @@
-import React from 'react';
+
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 import logo from './assets/imgs/logoGranujillas.jpg';
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// import { CategoriesList } from 'components/CategoriesList';
-// import { ProductsList } from 'components/ProductsList';
-// import { ProductView } from 'components/ProductView';
-// import { ShopCart } from 'components/ShopCart';
 
  const App = () =>{
+
+    const initialState = '';
+    const [ inputValue, setInputValue ] = useState(initialState);
+
+
+    const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
+        setInputValue(e.target.value);
+       
+    };
+    const handleSubmit = ( e: React.FormEvent<HTMLFormElement> ) => {
+        e.preventDefault();
+        console.log('Dentro del handleSubmit')
+        
+    };
 
     return (
         <div className="App">
@@ -29,38 +39,34 @@ import logo from './assets/imgs/logoGranujillas.jpg';
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         
                                     <li className="nav-item">
-                                        <Link className="nav-link disabled" to={''}>About us</Link>
+                                        <Link className="nav-link disabled" to={'/'}>About us</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link to={''} className="nav-link disabled">Shipping/Return</Link>
+                                        <Link to={'/'} className="nav-link disabled">Shipping/Return policy</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link to={'/productForm'} className="nav-link"><strong>Add Product</strong></Link>
                                     </li>
                             </ul>
                             <ul className="navbar-nav ms-auto me-4 mb-2 mb-lg-0">
                                     <li className="nav-item">
-                                        <Link className="nav-link active" aria-current="page" to={''}><strong>Sign up / Log in</strong></Link>
+                                        <Link className="nav-link active" aria-current="page" to={'/signup'}><strong>Sign up / Log in</strong></Link>
                                     </li>
                             </ul>
-                            <form className="d-flex">
-                                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                <button className="btn btn-warning" type="submit">Search</button>
+                            {/* Aquí componente SearchForm */}
+                            <form className="d-flex" onSubmit={ handleSubmit }>
+                                <input className="form-control me-2" placeholder="¿Qué buscas hoy?" type="search" value={ inputValue } onChange={ handleInputChange }aria-label="Search"/>
+
+                                <Link to={`/search/${inputValue}`}><button className="btn btn-warning" type="submit"  >Search</button></Link>
                             </form>
                         </div>
                     </div>
                 </nav>
             </div>
             
-                {/* <BrowserRouter>
-                    <Routes>
-                        <Route path={'/'} element={ < CategoriesList/> }/>
-                        <Route  path='/products/:category' element={ <ProductsList />}/>
-                        <Route path='/product/:id' element={ <ProductView />} />
-                        <Route  path='/shopcart'  element={ <ShopCart />}/>
-                    </Routes>
-                </BrowserRouter> */}
-            
-            <div className="text-dark text-center fixed-bottom">
+            {/* <div className="text-dark text-center fixed-bottom">
                 <p className='text-center mt-2'>Copyright&copy; MMM 2022</p>
-            </div>
+            </div> */}
 
         </div>
     );

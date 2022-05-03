@@ -1,0 +1,11 @@
+.container .form-group{
+    margin: 10px auto;
+}
+
+.required-message{
+    color: tomato;
+}
+
+.message{
+    color: rgb(14, 226, 43)
+}

@@ -19,6 +19,10 @@
     font-weight: bolder;
 }
 
+.form-control.me-2{
+    color: gray;
+}
+
 footer{
     background-color: rgba(162, 226, 223, 0.397);
     font-weight: 500;

@@ -1,0 +1,20 @@
+version: "3"
+services: 
+    frontend_granujillas:
+        container_name: "frontend_granujillas"
+        image: "marcelamm/frontend"
+        build: .
+        restart: always
+        volumes:
+            - './src:/app/src'
+        ports:
+            - "4010:3000"
+        networks:
+            - granujillas
+networks:
+  granujillas:
+        
+
+
+ 
+
