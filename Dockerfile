@@ -1,10 +1,10 @@
 FROM node:16-alpine
 
-WORKDIR /usr/src/app/my-app
+WORKDIR /app
 
-COPY package*.json ./
+COPY . .
 
-RUN npm install
+RUN npm install && npm run build
 
 EXPOSE 3000
 

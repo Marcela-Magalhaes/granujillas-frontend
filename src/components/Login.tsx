@@ -7,7 +7,7 @@ export const Login = () => {
     <div className='container text-center my-2'>
         <h1>Inicia Sesión</h1>
         <hr />
-        <img src={ imgWorking } alt="imagen persona trabajando" />
+        <img className="login-image" src={ imgWorking } alt="imagen persona trabajando" />
         <br />
     
     </div>

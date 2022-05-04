@@ -1,11 +1,7 @@
 
 import { useEffect, useState } from 'react';
-
-import './CategoriesList.css';
 import { Category } from '../models/categoryModel';
 import { PrintCategories } from './PrintCategories';
-// const categoryService = handleCategoryService();
-
 
 export const CategoriesList = () => {
 

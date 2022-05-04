@@ -12,13 +12,7 @@ import logo from './assets/imgs/logoGranujillas.jpg';
 
 
     const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-        setInputValue(e.target.value);
-       
-    };
-    const handleSubmit = ( e: React.FormEvent<HTMLFormElement> ) => {
-        e.preventDefault();
-        console.log('Dentro del handleSubmit')
-        
+        setInputValue(e.target.value );
     };
 
     return (
@@ -54,8 +48,8 @@ import logo from './assets/imgs/logoGranujillas.jpg';
                                     </li>
                             </ul>
                             {/* Aquí componente SearchForm */}
-                            <form className="d-flex" onSubmit={ handleSubmit }>
-                                <input className="form-control me-2" placeholder="¿Qué buscas hoy?" type="search" value={ inputValue } onChange={ handleInputChange }aria-label="Search"/>
+                            <form className="d-flex">
+                                <input className="form-control me-2" placeholder="¿Qué buscas hoy?" type="search" value={ inputValue } onChange={ handleInputChange } aria-label="Search"/>
 
                                 <Link to={`/search/${inputValue}`}><button className="btn btn-warning" type="submit"  >Search</button></Link>
                             </form>

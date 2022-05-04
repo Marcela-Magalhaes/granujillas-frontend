@@ -1,14 +1,14 @@
-import React, {  useState } from 'react';
-import { useEffect } from 'react';
+import React, {  useState, useEffect } from 'react';
 import { Product } from '../models/productModel';
-import './ShopCart.css';
-import emptyCartLogo from '../assets/imgs/empty-shop-cart.png';
 import { Link } from 'react-router-dom';
 
+import emptyCartLogo from '../assets/imgs/empty-shop-cart.png';
+import './ShopCart.css';
 
 export const ShopCart = () => {
 
     const [ productsToBuy, setProductsToBuy ] = useState<Product[]>([]);
+    const [ toggle, setToggle ] = useState(false);
 
     useEffect(() => {
         fetch('/shopcart')
@@ -16,16 +16,16 @@ export const ShopCart = () => {
                 if( response !== null && response !== undefined) return response.json()
             })
             .then( data => setProductsToBuy( data))
-            .catch( error => console.log( error ))
-    }, [ ]);
+            .catch( error => console.log( error ));
+    }, [ toggle ]);
 
     const handleDeleteProduct = ( id: string, e?: React.MouseEvent<HTMLButtonElement> ) => {
-    console.log('Producto eliminado');
         fetch(`/shopcart/${ id }`, {
             method: 'DELETE'
         })
-
-}
+        setToggle(!toggle)
+    
+    }
     return(
         <div className='container text-center'>
             <h1 className='text-center my-3'>Tu Carrito de Compras</h1>
@@ -33,6 +33,7 @@ export const ShopCart = () => {
             <section className="container ">
                 <ol className="list-group list-group-flush">
                     {
+                        
                         productsToBuy.map( (product, index: number) => {
                             return(
                                 <li key={ product._id } className="list-group-item">
@@ -41,10 +42,10 @@ export const ShopCart = () => {
                                     
                                    <button onClick={ () => handleDeleteProduct( product._id ) } className='btn btn-danger mx-5'>Eliminar</button>
                                 
-                                   {/* <button className='btn btn-danger mx-5'>Eliminar</button>  */}
                                 </li>
                             )
                         })
+                      
                     }
                     
                 </ol>

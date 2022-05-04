@@ -13,8 +13,9 @@ const initialState: Product = {
 export const ProductView = () => {
 
     const [ product, setProduct ] = useState<Product>( initialState );
-
     const { id } = useParams();
+    
+
     useEffect(() => {
         fetch(`/products/${id}`)
             .then( response => {
@@ -25,7 +26,6 @@ export const ProductView = () => {
     }, [ id ]);
 
     const handleAddShopCart = () => {
-        // console.log('¡Producto añadido al carrito!');
 
         fetch('/shopcart', {
             method: 'post',
@@ -45,11 +45,12 @@ export const ProductView = () => {
                     <div className="card">
                         <img className='my-5' src={ product.image } alt={`Imagen de ${ product.name }`} />
                         <h4 className="card-title">{ product.name }</h4>
+                        <p><small><Link to={`/updateProduct/${product._id}`} className="nav-link"><strong>Update Product</strong></Link></small></p>
                         <br />
                         <p><strong>Sobre este producto: </strong>{ product.description}</p>
                         <p><strong>Precio:</strong> { product.price }€</p>
                     
-                        <button onClick={ handleAddShopCart} className='btn btn-warning mb-5 mx-auto col-md-6 text-center'>Añadir al carrito</button>
+                        <button onClick={ handleAddShopCart } className='btn btn-warning mb-5 mx-auto col-md-6 text-center'>Añadir al carrito</button>
                     
                         
                     </div>

@@ -8,7 +8,7 @@ export const SignUp = () => {
     <div className='container text-center my-2'>
         <h1>Regístrate</h1>
         <hr />
-        <img src={ imgWorking } alt="imagen persona trabajando" />
+        <img className="signup-image" src={ imgWorking } alt="imagen persona trabajando" />
         <br />
         <p>¿Ya estás registrado? <Link to={'/login'}><span>Inicia Sesión</span></Link></p>
     </div>

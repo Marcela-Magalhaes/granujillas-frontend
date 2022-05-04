@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './ProductForm.css';
 import Form from 'react-bootstrap/Form';
 import { Alert, Button } from 'react-bootstrap';
-// import { SelectCategoriesList } from './SelectCategoriesList';
 import { Category } from 'models/categoryModel';
+import { Link, useParams } from 'react-router-dom';
+import { useFetch } from 'hooks/useFetch';
+import { Product } from 'models/productModel';
+
 
 type FormState= {
   
@@ -14,7 +17,7 @@ type FormState= {
     category: string
 };
 
-const initialState = {
+let initialState = {
     name: '',
     price: 0,
     image: '',
@@ -24,35 +27,42 @@ const initialState = {
 
 let checkForm = 0;
 
-export const ProductForm = () => {
-
+export const UpdateProductForm = () => {
+    const { id } = useParams();
+    
     const [ inputValues, setInputValues ] = useState<FormState>(initialState);
 
     const [ categories, setCategories ] = useState<Category[]>([]);
 
-    useEffect(() => {
+    const { data } = useFetch('/categories', 'GET');
+        if( data !== null ){
+            setCategories(data);
+        }
         
-        fetch('/categories')
+
+    useEffect(() => {
+
+        fetch(`/products/${ id }`)
             .then( response => {
                 if( response !== null && response !== undefined) return response.json();
             })
             .then( data => {
-                setCategories( data )
-                // console.log('~ data', data);
+                const product: FormState = data;
+                setInputValues(product);
             })
             
             .catch( error => console.log(error));
-    }, [ ]);
+    }, [ id ]);
 
-    
+       
 
-    const handleSubmit = async (product: FormState, e: React.FormEvent<HTMLFormElement> ) => {
+    const handleSubmit = async (product: FormState, e: React.FormEvent<HTMLFormElement & EventTarget>  ) => {
 
         e.preventDefault(); 
         
-        const { status } = await fetch('/products', {
+        const { status } = await fetch(`/products/${ id }`, {
         
-            method: 'POST',
+            method: 'put',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -74,7 +84,7 @@ export const ProductForm = () => {
             ...inputValues,
             [e.target.name]: e.target.value
         });
-        // console.log('~ ...inputValues,', inputValues);
+         console.log('~ ...inputValues handleChange', inputValues);
     };
 
     const handleSelect = (e:  React.ChangeEvent<HTMLSelectElement> ) => {
@@ -89,10 +99,10 @@ export const ProductForm = () => {
   return (
       
     <div className='container my-2 mx-10'>
-        <div className='text-center'>
-            <h1>Add a new product</h1>
+        <div className="text-center">
+            <h1>Edit a product</h1>
         </div>
-        
+       
         <hr />
         <br />
 
@@ -106,28 +116,28 @@ export const ProductForm = () => {
             <Form onSubmit={ (e) => handleSubmit( inputValues, e ) }>
                 <Form.Group className='mb-3' >
                     <Form.Label><strong>Name</strong></Form.Label>
-                    <Form.Control type="text" name='name' value={ inputValues.name } placeholder='Product name' onChange= { handleChange }/>
+                    <Form.Control type="text" name='name' value={ inputValues.name } onChange= { handleChange }/>
                 </Form.Group>
 
                 <Form.Group className='mb-3'>
                     <Form.Label><strong>Price</strong></Form.Label>
-                    <Form.Control type="number" name='price' value={ inputValues.price } placeholder='Price' onChange= { handleChange }/>
+                    <Form.Control type="text" name='price' value={ inputValues.price }  onChange= { handleChange }/>
                 </Form.Group>
 
                 <Form.Group className='mb-3'>
                     <Form.Label><strong>Image</strong></Form.Label>
-                    <Form.Control type="file" name='image' value={ inputValues.image } placeholder='image' onChange= { handleChange }/>    
+                    <Form.Control type="file" name='image' value={ inputValues.image } onChange= { handleChange } />    
                 </Form.Group>
 
                 <Form.Group className='mb-3'>
                     <Form.Label><strong>Description</strong></Form.Label>
-                    <Form.Control as="textarea" style={{ height: '100px' }} name='description' value={ inputValues.description } placeholder='description' onChange= { handleChange }/> 
+                    <Form.Control as="textarea" style={{ height: '100px' }} name='description' value={ inputValues.description }  onChange= { handleChange }/> 
                 </Form.Group>
 
                 <Form.Group className='mb-3' controlId='formBasicSelect'>
                     <Form.Label><strong>Category</strong></Form.Label>
                     <Form.Select  name='category' value={ inputValues.category } onChange={ handleSelect }>
-                        <option>Selecciona una Categoría</option>
+                        <option>{inputValues.category}</option>
                         {
                             categories.map( category => {
                                 return  <option key={ category._id }>{ category.name }</option>
@@ -147,6 +157,7 @@ export const ProductForm = () => {
         :
         <Alert key="success" variant="success">
              <h1 className="message">Tu producto ha sido añadido correctamente. </h1>
+             <Link to="/updateProduct">Editar producto</Link>
         </Alert>               
          
           

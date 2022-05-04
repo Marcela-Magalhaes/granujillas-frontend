@@ -1,6 +1,8 @@
-import React from 'react'
+
 import { Link } from 'react-router-dom';
 import { Category } from '../models/categoryModel';
+
+import './PrintCategories.css';
 
 interface Props {
     categories: Category[]
@@ -13,10 +15,10 @@ export const PrintCategories = ( { categories }: Props ) => {
             {
                 categories.map( (category) => {
                     return(
-                        <div className='col-sm-12 col-md-6 col-lg-4'>
+                        <div className='col-sm-12 col-md-6 col-lg-4' key={ category._id}>
                             <div className='card my-2'>
                                 <Link to={`/products/${category.name}`}>
-                                    <img src={ category.image } alt={`Foto de la categoría ${category.name}`} className='card-img-top'/>
+                                    <img  src={ category.image } alt={`Foto de la categoría ${category.name}`} className='card-img-top'/>
                                 </Link>
                                 
                                 <div className='card-body'>

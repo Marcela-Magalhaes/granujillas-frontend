@@ -27,7 +27,7 @@ export const ProductsList = () => {
                     if( response !== null && response !== undefined ) return response.json()
                 })
                 .then( data => {
-                    // console.log('data', data);
+                    //  console.log('data category', data);
                     return setProductsList( data )
                 })
                 .catch( error => console.log( error ))
@@ -41,7 +41,7 @@ export const ProductsList = () => {
                     if( response !== null && response !== undefined ) return response.json()
                 })
                 .then( data => {
-                    //  console.log('data', data);
+                    //   console.log('data searchedProduct', data);
                     return setProductsList( data )
                 })
                 .catch( error => console.log( error ));

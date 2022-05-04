@@ -5,12 +5,12 @@ services:
         image: "marcelamm/frontend"
         build: .
         restart: always
-        volumes:
-            - './src:/app/src'
         ports:
             - "4010:3000"
         networks:
             - granujillas
+        volumes: 
+            - .:/app
 networks:
   granujillas:
         
