@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './ProductForm.css';
 import Form from 'react-bootstrap/Form';
 import { Alert, Button } from 'react-bootstrap';
-// import { SelectCategoriesList } from './SelectCategoriesList';
 import { Category } from 'models/categoryModel';
+import { useParams } from 'react-router-dom';
 
 type FormState= {
-  
+    _id?: string,
     name: string,
     price: number,
     image: string,
@@ -22,13 +22,17 @@ const initialState = {
     category: ''
 };
 
-let checkForm = 0;
 
 export const ProductForm = () => {
+
 
     const [ inputValues, setInputValues ] = useState<FormState>(initialState);
 
     const [ categories, setCategories ] = useState<Category[]>([]);
+
+    const [ checkForm , setCheckForm ] = useState(0);
+
+    const [ checkUpdate, setCheckUpdate ] = useState(0);
 
     useEffect(() => {
         
@@ -44,28 +48,85 @@ export const ProductForm = () => {
             .catch( error => console.log(error));
     }, [ ]);
 
+    const { id } = useParams();
+    useEffect(() => {
     
+        if( id !== undefined){
+            setCheckUpdate(1);
+            fetch(`/products/${ id }`)
+                .then( response => {
+                    if( response !== null && response !== undefined ){
+                        return response.json()
+                    };
+                })
+                .then( data => {
+                    
+                    setInputValues({
+                        _id: data._id,
+                        name: data.name,
+                        price: data.price, 
+                        image: '',
+                        description: data.description,
+                        category: data.category
+                    });
+                })
+                .catch( error => console.log(error));
+        }
+   }, [ id ]);
 
+   
     const handleSubmit = async (product: FormState, e: React.FormEvent<HTMLFormElement> ) => {
 
-        e.preventDefault(); 
-        
-        const { status } = await fetch('/products', {
-        
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify( product )
-        })
+        if( inputValues._id === undefined || inputValues._id === null){
+            // Multer upload
+            const data = new FormData();
+            data.append('image', product.image);
+            await fetch('http://localhost:3000/images', {
+                method: 'POST',
+                body: data
+            });
 
+            // AddProduct
+            const { status } = await fetch('/products', {
+        
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( product )
+            
+            })
+            if( status === 200 ) setCheckForm(1);
+              
+             
+        } else {
+            
+            if( id !== undefined){
+               // Update product
+                await fetch(`/products/${ id }`, {
+        
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        description: product.description,
+                        category: product.category
+                    })
+                })
+                e.preventDefault();
+              
+            }
 
-        if( status === 200 ){
-            checkForm = 1;
-            console.log('checkForm', checkForm);
+            
         }
         
+        e.preventDefault(); 
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
@@ -74,23 +135,28 @@ export const ProductForm = () => {
             ...inputValues,
             [e.target.name]: e.target.value
         });
-        // console.log('~ ...inputValues,', inputValues);
+       
     };
 
     const handleSelect = (e:  React.ChangeEvent<HTMLSelectElement> ) => {
-        // console.log('######### e.target.name', e.target.name);
-        // console.log('######### e.target.value', e.target.value);
+        
         setInputValues({ 
             ...inputValues,
             [e.target.name]: e.target.value
         });
+     
     };
 
   return (
       
     <div className='container my-2 mx-10'>
         <div className='text-center'>
-            <h1>Add a new product</h1>
+            {
+                (checkUpdate === 0)
+                ? <h1>Add a new product</h1>
+                : <h1>Update a product</h1>
+            }
+            
         </div>
         
         <hr />
@@ -116,7 +182,7 @@ export const ProductForm = () => {
 
                 <Form.Group className='mb-3'>
                     <Form.Label><strong>Image</strong></Form.Label>
-                    <Form.Control type="file" name='image' value={ inputValues.image } placeholder='image' onChange= { handleChange }/>    
+                    <Form.Control type="file" formAction='/image' formMethod='post' formEncType='multipart/form-data' name='image' value={ inputValues.image } onChange= { handleChange }/>    
                 </Form.Group>
 
                 <Form.Group className='mb-3'>
@@ -146,7 +212,7 @@ export const ProductForm = () => {
        
         :
         <Alert key="success" variant="success">
-             <h1 className="message">Tu producto ha sido añadido correctamente. </h1>
+             <h1 className="message text-center">Tu producto ha sido añadido correctamente. </h1>
         </Alert>               
          
           

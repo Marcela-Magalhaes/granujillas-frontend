@@ -14,8 +14,8 @@
     margin: 0.3rem auto 0.6rem auto;
 };
 
-.card-img-top{
-    height: 100%;
+.category-image{
+    height: 100% !important; 
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }

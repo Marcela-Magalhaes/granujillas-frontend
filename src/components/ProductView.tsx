@@ -40,10 +40,10 @@ export const ProductView = () => {
     return(
         
         <section className='container text-center mt-3 mb-5'>
-            <div className="row mt-4">
-                <div className="col col-lg-9 col-md-6 col-center text-center mb-2">
+            <div className="row mt-2">
+                <div className="col col-lg-6 col-md-4 col-center text-center mb-2">
                     <div className="card">
-                        <img className='my-5' src={ product.image } alt={`Imagen de ${ product.name }`} />
+                        <img className='product-img img-fluid m-2' src={ `http://localhost:3000/${product.image}`} alt={`Imagen de ${ product.name }`} />
                         <h4 className="card-title">{ product.name }</h4>
                         <p><small><Link to={`/updateProduct/${product._id}`} className="nav-link"><strong>Update Product</strong></Link></small></p>
                         <br />

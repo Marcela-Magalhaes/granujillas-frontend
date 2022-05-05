@@ -1,0 +1,18 @@
+.printlist-card{
+    
+    height: 24.87rem;
+    width: 16.62rem;
+}
+
+.productlist-image{
+    
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.printlist-card-body{
+    height: 4.3rem;
+      
+} 
+

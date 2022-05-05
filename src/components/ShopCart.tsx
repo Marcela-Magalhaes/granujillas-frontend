@@ -20,11 +20,14 @@ export const ShopCart = () => {
     }, [ toggle ]);
 
     const handleDeleteProduct = ( id: string, e?: React.MouseEvent<HTMLButtonElement> ) => {
-        fetch(`/shopcart/${ id }`, {
+      if( window.confirm('Are you sure you want to delete it?')){
+          fetch(`/shopcart/${ id }`, {
             method: 'DELETE'
         })
         setToggle(!toggle)
     
+      }
+        
     }
     return(
         <div className='container text-center'>
@@ -38,7 +41,7 @@ export const ShopCart = () => {
                             return(
                                 <li key={ product._id } className="list-group-item">
                                     
-                                   { index + 1 }. { product.image } - { product.name } - {product.price}€ 
+                                   <strong>{ index + 1 }. <img src={`http://localhost:3000/${product.image}`} className="shopcart-img" alt='shopcart-product'/>  { product.name } - {product.price}€ </strong>
                                     
                                    <button onClick={ () => handleDeleteProduct( product._id ) } className='btn btn-danger mx-5'>Eliminar</button>
                                 
