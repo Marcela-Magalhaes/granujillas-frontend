@@ -6,7 +6,7 @@ export const NotFound = () => {
     <div className='container text-center my-5'>
         <h3>Página no encontrada.</h3>
         <br />
-        <img src={ notfound } alt="not found" />
+        <img className="text-center my-5" src={ notfound } alt="not found" />
         <br />
     
     </div>

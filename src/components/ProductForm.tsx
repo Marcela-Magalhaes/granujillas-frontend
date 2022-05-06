@@ -76,6 +76,7 @@ export const ProductForm = () => {
 
    
     const handleSubmit = async (product: FormState, e: React.FormEvent<HTMLFormElement> ) => {
+        e.preventDefault();  
 
         if( inputValues._id === undefined || inputValues._id === null){
             // Multer upload
@@ -88,7 +89,7 @@ export const ProductForm = () => {
 
             // AddProduct
             const { status } = await fetch('/products', {
-        
+            
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -96,9 +97,10 @@ export const ProductForm = () => {
                 },
                 body: JSON.stringify( product )
             
-            })
+            });
+            console.log('~ status', status);
             if( status === 200 ) setCheckForm(1);
-            e.preventDefault();  
+            
              
         } else {
             
@@ -166,54 +168,53 @@ export const ProductForm = () => {
         
         (checkForm === 0) 
         
-        ?
-        <div>
-            <p className='required-message'>* Todos los campos son requeridos</p>
-            <Form onSubmit={ (e) => handleSubmit( inputValues, e ) }>
-                <Form.Group className='mb-3' >
-                    <Form.Label><strong>Name</strong></Form.Label>
-                    <Form.Control type="text" name='name' value={ inputValues.name } placeholder='Product name' onChange= { handleChange }/>
-                </Form.Group>
+        ?   <div>
+                <p className='required-message'>* Todos los campos son requeridos</p>
+                <Form onSubmit={ (e) => handleSubmit( inputValues, e ) }>
+                    <Form.Group className='mb-3' >
+                        <Form.Label><strong>Name</strong></Form.Label>
+                        <Form.Control type="text" name='name' value={ inputValues.name } placeholder='Product name' onChange= { handleChange }/>
+                    </Form.Group>
 
-                <Form.Group className='mb-3'>
-                    <Form.Label><strong>Price</strong></Form.Label>
-                    <Form.Control type="number" name='price' value={ inputValues.price } placeholder='Price' onChange= { handleChange }/>
-                </Form.Group>
+                    <Form.Group className='mb-3'>
+                        <Form.Label><strong>Price</strong></Form.Label>
+                        <Form.Control type="number" name='price' value={ inputValues.price } placeholder='Price' onChange= { handleChange }/>
+                    </Form.Group>
 
-                <Form.Group className='mb-3'>
-                    <Form.Label><strong>Image</strong></Form.Label>
-                    <Form.Control type="file" formAction='/image' formMethod='post' formEncType='multipart/form-data' name='image' value={ inputValues.image } onChange= { handleChange }/>    
-                </Form.Group>
+                    <Form.Group className='mb-3'>
+                        <Form.Label><strong>Image</strong></Form.Label>
+                        <Form.Control type="file" formAction='/image' formMethod='post' formEncType='multipart/form-data' name='image' value={ inputValues.image } onChange= { handleChange }/>    
+                    </Form.Group>
 
-                <Form.Group className='mb-3'>
-                    <Form.Label><strong>Description</strong></Form.Label>
-                    <Form.Control as="textarea" style={{ height: '100px' }} name='description' value={ inputValues.description } placeholder='description' onChange= { handleChange }/> 
-                </Form.Group>
+                    <Form.Group className='mb-3'>
+                        <Form.Label><strong>Description</strong></Form.Label>
+                        <Form.Control as="textarea" style={{ height: '100px' }} name='description' value={ inputValues.description } placeholder='description' onChange= { handleChange }/> 
+                    </Form.Group>
 
-                <Form.Group className='mb-3' controlId='formBasicSelect'>
-                    <Form.Label><strong>Category</strong></Form.Label>
-                    <Form.Select  name='category' value={ inputValues.category } onChange={ handleSelect }>
-                        <option>Selecciona una Categoría</option>
-                        {
-                            categories.map( category => {
-                                return  <option key={ category._id }>{ category.name }</option>
-                            })
-                        } 
-                    </Form.Select>
+                    <Form.Group className='mb-3' controlId='formBasicSelect'>
+                        <Form.Label><strong>Category</strong></Form.Label>
+                        <Form.Select  name='category' value={ inputValues.category } onChange={ handleSelect }>
+                            <option>Selecciona una Categoría</option>
+                            {
+                                categories.map( category => {
+                                    return  <option key={ category._id }>{ category.name }</option>
+                                })
+                            } 
+                        </Form.Select>
 
-                </Form.Group>
+                    </Form.Group>
 
-                <div className='text-center'>
-                     <Button variant='warning' type='submit' className='col-6'>Submit</Button> 
-                </div>
-                
-            </Form>
-        </div>
+                    <div className='text-center'>
+                        <Button variant='warning' type='submit' className='col-6'>Submit</Button> 
+                    </div>
+                    
+                </Form>
+            </div>
        
-        :
-        <Alert key="success" variant="success">
-             <h1 className="message text-center">Tu producto ha sido añadido correctamente. </h1>
-        </Alert>               
+        :  <Alert key="success" variant="success">
+                <h1 className="message text-center">Tu producto ha sido añadido correctamente. </h1>
+           </Alert>  
+                    
          
           
     }
