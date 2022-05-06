@@ -25,7 +25,7 @@ export const PrintList = ({ productsList }: Props) => {
                                     <h4 className="card-title">
                                         { product.name }
                                     </h4>
-                            
+                                    <p>{ product.price} €</p>
                                 </div>
                             </div>    
                         </div>

@@ -1,7 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 .printlist-card{
-    
-    height: 24.87rem;
-    width: 16.62rem;
+    border-radius: 1rem;
+    width: 100%;
+    height: 90%;
+    padding: 0.5rem;
+    margin: 0.3rem auto 0.6rem auto;
 }
 
 .productlist-image{
@@ -11,8 +18,6 @@
     object-fit: contain;
 }
 
-.printlist-card-body{
-    height: 4.3rem;
-      
-} 
+
+
 

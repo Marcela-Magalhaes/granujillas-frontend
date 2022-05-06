@@ -98,7 +98,7 @@ export const ProductForm = () => {
             
             })
             if( status === 200 ) setCheckForm(1);
-              
+            e.preventDefault();  
              
         } else {
             
