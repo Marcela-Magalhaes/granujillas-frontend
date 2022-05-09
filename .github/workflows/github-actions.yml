@@ -8,15 +8,13 @@ on:
 
 jobs: 
   deploy:
-
     runs-on: ubuntu-latest
-
     steps: 
       - uses: actions/checkout@v2
       - name: Use Node.js 16
         uses: actions/setup-node@v1
         with: 
-          node_version: 16.x
+          node-version: 16.x
       - run: npm ci
       - run: npm run build --if-present
       - name: copy folder to SSH
@@ -24,7 +22,7 @@ jobs:
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
+          privateKey: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_SSH_PORT }}
           local: "build"
           remote: "granujillas/frontend"
