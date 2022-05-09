@@ -1,4 +1,4 @@
-name: granujillas-frontend CI
+name: granujillas-frontend 
 
 on: 
   push: 
