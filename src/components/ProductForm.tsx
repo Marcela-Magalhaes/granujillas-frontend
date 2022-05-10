@@ -3,7 +3,7 @@ import './ProductForm.css';
 import Form from 'react-bootstrap/Form';
 import { Alert, Button } from 'react-bootstrap';
 import { Category } from 'models/categoryModel';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 type FormState= {
     _id?: string,
@@ -33,6 +33,8 @@ export const ProductForm = () => {
     const [ checkForm , setCheckForm ] = useState(0);
 
     const [ checkUpdate, setCheckUpdate ] = useState(0);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         
@@ -100,8 +102,12 @@ export const ProductForm = () => {
                 body: JSON.stringify( product )
             
             });
-            console.log('~ status', status);
+            
             if( status === 200 ) setCheckForm(1);
+
+            setTimeout( () => {
+                navigate('/home');
+            }, 1500);
             
              
         } else {
@@ -123,11 +129,9 @@ export const ProductForm = () => {
                         category: product.category
                     })
                 })
-                e.preventDefault();
+                navigate(`/product/${product._id}`);
               
-            }
-
-            
+            }       
         }
         
         e.preventDefault(); 
