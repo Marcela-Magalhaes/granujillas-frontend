@@ -82,6 +82,8 @@ export const ProductForm = () => {
             // Multer upload
             const data = new FormData();
             data.append('image', product.image);
+            console.log('~ product.image', product.image);
+            console.log('~ data', data);
             await fetch('http://localhost:3000/images', {
                 method: 'POST',
                 body: data
