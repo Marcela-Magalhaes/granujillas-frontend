@@ -47,7 +47,7 @@ export const ProductView = () => {
                         <h4 className="card-title">{ product.name }</h4>
                         <p><small><Link to={`/updateProduct/${product._id}`} className="nav-link"><strong>Update Product</strong></Link></small></p>
                         <br />
-                        <p><strong>Sobre este producto: </strong>{ product.description}</p>
+                        <p className='px-2'><strong>Sobre este producto: </strong>{ product.description}</p>
                         <p><strong>Precio:</strong> { product.price }€</p>
                     
                         <button onClick={ handleAddShopCart } className='btn btn-warning mb-5 mx-auto col-md-6 text-center'>Añadir al carrito</button>
