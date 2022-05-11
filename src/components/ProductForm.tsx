@@ -99,7 +99,13 @@ export const ProductForm = () => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify( product )
+                body: JSON.stringify({
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    description: product.description,
+                    category: product.category
+                })
             
             });
             
