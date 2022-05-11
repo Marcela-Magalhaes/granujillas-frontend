@@ -86,13 +86,13 @@ export const ProductForm = () => {
             data.append('image', product.image);
             console.log('~ product.image', product.image);
             console.log('~ data', data);
-            await fetch('http://localhost:3000/images', {
+            await fetch('https://api.granujillas.teamcamp.ovh/images', {
                 method: 'POST',
                 body: data
             });
 
             // AddProduct
-            const { status } = await fetch('/products', {
+            const { status } = await fetch('https://api.granujillas.teamcamp.ovh/products', {
             
                 method: 'POST',
                 headers: {
@@ -114,7 +114,7 @@ export const ProductForm = () => {
             
             if( id !== undefined){
                // Update product
-                await fetch(`/products/${ id }`, {
+                await fetch(`https://api.granujillas.teamcamp.ovh/products/${ id }`, {
         
                     method: 'PUT',
                     headers: {
