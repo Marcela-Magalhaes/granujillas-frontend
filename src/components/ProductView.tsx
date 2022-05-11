@@ -17,7 +17,7 @@ export const ProductView = () => {
     
 
     useEffect(() => {
-        fetch(`/products/${id}`)
+        fetch(`https://api.granujillas.teamcamp.ovh/products/${id}`)
             .then( response => {
                 if( response !== null && response !== undefined ) return response.json()
             })
@@ -27,7 +27,7 @@ export const ProductView = () => {
 
     const handleAddShopCart = () => {
 
-        fetch('/shopcart', {
+        fetch('https://api.granujillas.teamcamp.ovh/shopcart', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',

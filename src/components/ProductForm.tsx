@@ -38,7 +38,7 @@ export const ProductForm = () => {
 
     useEffect(() => {
         
-        fetch('/categories')
+        fetch('https://api.granujillas.teamcamp.ovh/categories')
             .then( response => {
                 if( response !== null && response !== undefined) return response.json();
             })
@@ -55,7 +55,7 @@ export const ProductForm = () => {
     
         if( id !== undefined){
             setCheckUpdate(1);
-            fetch(`/products/${ id }`)
+            fetch(`https://api.granujillas.teamcamp.ovh/products/${ id }`)
                 .then( response => {
                     if( response !== null && response !== undefined ){
                         return response.json()
@@ -114,7 +114,7 @@ export const ProductForm = () => {
             
             if( id !== undefined){
                // Update product
-                await fetch(`https://api.granujillas.teamcamp.ovh/products/${ id }`, {
+                await fetch(`https://api.granujillas.teamcamp.ovh/products/${id}`, {
         
                     method: 'PUT',
                     headers: {
