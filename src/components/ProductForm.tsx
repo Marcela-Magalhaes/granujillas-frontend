@@ -106,9 +106,9 @@ export const ProductForm = () => {
                     description: product.description,
                     category: product.category
                 })
-            
+               
             });
-            
+            console.log('product.image2', product.image);
             if( status === 200 ) setCheckForm(1);
 
             setTimeout( () => {
@@ -135,6 +135,7 @@ export const ProductForm = () => {
                         category: product.category
                     })
                 })
+                console.log('product.image update', product.image);
                 navigate(`/product/${product._id}`);
               
             }       
