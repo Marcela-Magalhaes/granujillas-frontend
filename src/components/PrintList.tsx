@@ -19,7 +19,7 @@ export const PrintList = ({ productsList }: Props) => {
                         <div className='col-sm-12 col-md-6 col-lg-3' key={ product._id }>
                             <div className='printlist-card card my-2' >
                                 <Link to={`/product/${product._id}`}>
-                                    <img className="productlist-image card-img-top img-fluid p-1" src={ `https://api.granujillas.teamcamp.ovh/statics/${product.image}`} alt={`Imagen de ${product.name}`}/>
+                                    <img className="productlist-image card-img-top img-fluid p-1" src={product.image} alt={`Imagen de ${product.name}`}/>
                                 </Link>
                                 <div className="card-body printlist-card-body" >
                                     <h4 className="card-title">
