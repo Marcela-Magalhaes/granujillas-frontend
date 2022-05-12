@@ -84,8 +84,7 @@ export const ProductForm = () => {
             // Multer upload
             const data = new FormData();
             data.append('image', product.image);
-            console.log('~ product.image', product.image);
-            console.log('~ data', data);
+           
             await fetch('https://api.granujillas.teamcamp.ovh/images', {
                 method: 'POST',
                 body: data
@@ -108,7 +107,7 @@ export const ProductForm = () => {
                 })
                
             });
-            console.log('product.image2', product.image);
+            // console.log('product.image - createProduct', product.image);
             if( status === 200 ) setCheckForm(1);
 
             setTimeout( () => {
@@ -135,7 +134,7 @@ export const ProductForm = () => {
                         category: product.category
                     })
                 })
-                console.log('product.image update', product.image);
+                // console.log('product.image update', product.image);
                 navigate(`/product/${product._id}`);
               
             }       
