@@ -41,7 +41,7 @@ export const ShopCart = () => {
                             return(
                                 <li key={ product._id } className="list-group-item">
                                     
-                                   <strong>{ index + 1 }. <img src={product.image} className="shopcart-img" alt='shopcart-product'/>  { product.name } - {product.price}€ </strong>
+                                   <strong>{ index + 1 }. <img src={`https://api.granujillas.teamcamp.ovh/statics/${product.image}`} className="shopcart-img" alt='shopcart-product'/>  { product.name } - {product.price}€ </strong>
                                     
                                    <button onClick={ () => handleDeleteProduct( product._id ) } className='btn btn-danger mx-5'>Eliminar</button>
                                 
