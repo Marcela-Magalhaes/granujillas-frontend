@@ -92,7 +92,7 @@ export const ProductForm = () => {
              
              data.append('image', file);
             //  console.log('~ data', data);
-            const serverResponse = await fetch('https://localhost:3099/images', {
+            const serverResponse = await fetch('http://localhost:3099/images', {
                 method: 'POST',
                 body: data
             });
