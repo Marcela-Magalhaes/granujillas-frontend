@@ -84,7 +84,7 @@ export const ProductForm = () => {
         e.preventDefault();  
 
         console.log('~ file', file);
-        console.log('product', product);
+        
 
         if( inputValues._id === undefined || inputValues._id === null){
             // Multer upload
@@ -92,7 +92,7 @@ export const ProductForm = () => {
              
              data.append('image', file);
             //  console.log('~ data', data);
-            const serverResponse = await fetch('https://api.granujillas.teamcamp.ovh/images', {
+            const serverResponse = await fetch('https://localhost:3099/images', {
                 method: 'POST',
                 body: data
             });
@@ -115,7 +115,8 @@ export const ProductForm = () => {
                 })
                
             });
-            // console.log('product.image - createProduct', product.image);
+            console.log('product', product);
+            
             if( status === 200 ) setCheckForm(1);
 
             setTimeout( () => {
