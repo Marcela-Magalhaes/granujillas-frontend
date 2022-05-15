@@ -34,6 +34,8 @@ export const ProductForm = () => {
 
     const [ checkUpdate, setCheckUpdate ] = useState(0);
 
+    const [ file, setFile ] = useState();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -77,31 +79,37 @@ export const ProductForm = () => {
    }, [ id ]);
 
    
-    const handleSubmit = async (product: FormState, e: React.FormEvent<HTMLFormElement> ) => {
+    const handleSubmit = async (product: FormState, file: any, e: React.FormEvent<HTMLFormElement> ) => {
+    
         e.preventDefault();  
+
+        console.log('~ file', file);
+        console.log('product', product);
 
         if( inputValues._id === undefined || inputValues._id === null){
             // Multer upload
-            const data = new FormData();
-            data.append('image', product.image);
-           
-            await fetch('https://api.granujillas.teamcamp.ovh/images', {
+             const data = new FormData();
+             
+             data.append('image', file);
+            //  console.log('~ data', data);
+            const serverResponse = await fetch('https://api.granujillas.teamcamp.ovh/images', {
                 method: 'POST',
                 body: data
             });
+            console.log('~ serverResponse', serverResponse);
 
             // AddProduct
             const { status } = await fetch('https://api.granujillas.teamcamp.ovh/products', {
             
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
+                // headers: {
+                //     'Accept': '*/*',
+                //     'Content-Type': 'multipart/form-data'
+                // },
                 body: JSON.stringify({
                     name: product.name,
                     price: product.price,
-                    image: product.image,
+                    image: file.File.name,
                     description: product.description,
                     category: product.category
                 })
@@ -182,7 +190,7 @@ export const ProductForm = () => {
         
         ?   <div>
                 <p className='required-message'>* Todos los campos son requeridos</p>
-                <Form onSubmit={ (e) => handleSubmit( inputValues, e ) }>
+                <Form onSubmit={ (e) => handleSubmit( inputValues, file, e ) }>
                     <Form.Group className='mb-3' >
                         <Form.Label><strong>Name</strong></Form.Label>
                         <Form.Control type="text" name='name' value={ inputValues.name } placeholder='Product name' onChange= { handleChange }/>
@@ -195,7 +203,10 @@ export const ProductForm = () => {
 
                     <Form.Group className='mb-3'>
                         <Form.Label><strong>Image</strong></Form.Label>
-                        <Form.Control type="file" formAction='/image' formMethod='post' formEncType='multipart/form-data' name='image' value={ inputValues.image } onChange= { handleChange }/>    
+                        <Form.Control type="file" formEncType='multipart/form-data' name='image'  onChange = { event => {
+                            const file: any = (event.target as HTMLInputElement & EventTarget).files![0];
+                            setFile(file);
+                        } }/>    
                     </Form.Group>
 
                     <Form.Group className='mb-3'>
