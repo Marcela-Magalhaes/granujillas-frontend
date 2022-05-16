@@ -69,7 +69,7 @@ export const ProductForm = () => {
                         _id: data._id,
                         name: data.name,
                         price: data.price, 
-                        image: '',
+                        image: data.image,
                         description: data.description,
                         category: data.category
                     });
@@ -82,9 +82,6 @@ export const ProductForm = () => {
     const handleSubmit = async (product: FormState, file: any, e: React.FormEvent<HTMLFormElement> ) => {
     
         e.preventDefault();  
-
-        
-        
 
         if( inputValues._id === undefined || inputValues._id === null){
             // Multer upload
@@ -103,10 +100,10 @@ export const ProductForm = () => {
             const { status } = await fetch('https://api.granujillas.teamcamp.ovh/products', {
             
                 method: 'POST',
-                // headers: {
-                //     'Accept': '*/*',
-                //     'Content-Type': 'multipart/form-data'
-                // },
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'multipart/form-data; application/json'
+                },
                 body: JSON.stringify({
                     name: product.name,
                     price: product.price,
