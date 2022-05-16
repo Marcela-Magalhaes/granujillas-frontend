@@ -83,7 +83,7 @@ export const ProductForm = () => {
     
         e.preventDefault();  
 
-        console.log('~ file', file);
+        
         
 
         if( inputValues._id === undefined || inputValues._id === null){
@@ -92,10 +92,11 @@ export const ProductForm = () => {
              
              data.append('image', file);
             //  console.log('~ data', data);
-            const serverResponse = await fetch('http://localhost:3099/images', {
+            const serverResponse = await fetch('https://api.granujillas.teamcamp.ovh/images', {
                 method: 'POST',
                 body: data
             });
+            console.log('~ file', file.originalname);
             console.log('~ serverResponse', serverResponse);
 
             // AddProduct
@@ -109,7 +110,7 @@ export const ProductForm = () => {
                 body: JSON.stringify({
                     name: product.name,
                     price: product.price,
-                    image: file.File.name,
+                    image: file.originalname,
                     description: product.description,
                     category: product.category
                 })
