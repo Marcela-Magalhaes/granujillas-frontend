@@ -40,7 +40,7 @@ export const ProductForm = () => {
 
     useEffect(() => {
         
-        fetch('/categories')
+        fetch('https://api.granujillas.teamcamp.ovh/categories')
             .then( response => {
                 if( response !== null && response !== undefined) return response.json();
             })
@@ -56,7 +56,7 @@ export const ProductForm = () => {
     
         if( id !== undefined){
             setCheckUpdate(1);
-            fetch(`/products/${ id }`)
+            fetch(`https://api.granujillas.teamcamp.ovh/products/${ id }`)
                 .then( response => {
                     if( response !== null && response !== undefined ){
                         return response.json()
@@ -87,14 +87,14 @@ export const ProductForm = () => {
              const data = new FormData();
              data.append('image', file);
              
-            await fetch('/images', {
+            await fetch('https://api.granujillas.teamcamp.ovh/images', {
                 method: 'POST',
                 body: data
             });
             product.image = String(file.name);
       
             // AddProduct
-            const { status } = await fetch('/products', {
+            const { status } = await fetch('https://api.granujillas.teamcamp.ovh/products', {
             
                 method: 'POST',
                 body: JSON.stringify( product )
@@ -116,13 +116,13 @@ export const ProductForm = () => {
                const data = new FormData();
                data.append('image', file);
                
-              await fetch('/images', {
+              await fetch('https://api.granujillas.teamcamp.ovh/images', {
                   method: 'POST',
                   body: data
               });
               product.image = String(file.name);
 
-                await fetch(`/products/${id}`, {
+                await fetch(`https://api.granujillas.teamcamp.ovh/products/${id}`, {
         
                     method: 'PUT',
                     headers: {

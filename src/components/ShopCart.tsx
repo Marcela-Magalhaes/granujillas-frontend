@@ -11,7 +11,7 @@ export const ShopCart = () => {
     const [ toggle, setToggle ] = useState(false);
 
     useEffect(() => {
-        fetch('/shopcart')
+        fetch('https://api.granujillas.teamcamp.ovh/shopcart')
             .then( response => {
                 if( response !== null && response !== undefined) return response.json()
             })
@@ -21,7 +21,7 @@ export const ShopCart = () => {
 
     const handleDeleteProduct = ( id: string, e?: React.MouseEvent<HTMLButtonElement> ) => {
       if( window.confirm('Are you sure you want to delete it?')){
-          fetch(`/shopcart/${ id }`, {
+          fetch(`https://api.granujillas.teamcamp.ovh/shopcart/${ id }`, {
             method: 'DELETE'
         })
         setToggle(!toggle)
@@ -41,7 +41,7 @@ export const ShopCart = () => {
                             return(
                                 <li key={ product._id } className="list-group-item">
                                     
-                                   <strong>{ index + 1 }. <img src={`/statics/${product.image}`} className="shopcart-img" alt='shopcart-product'/>  { product.name } - {product.price}€ </strong>
+                                   <strong>{ index + 1 }. <img src={`https://api.granujillas.teamcamp.ovh/statics/${product.image}`} className="shopcart-img" alt='shopcart-product'/>  { product.name } - {product.price}€ </strong>
                                     
                                    <button onClick={ () => handleDeleteProduct( product._id ) } className='btn btn-danger mx-5'>Eliminar</button>
                                 
