@@ -22,7 +22,7 @@ export const ProductsList = () => {
         
         if(category !== null && category !== undefined){
     
-            fetch(`https://api.granujillas.teamcamp.ovh/products/category/${ category }`)
+            fetch(`/products/category/${ category }`)
                 .then( response => {
                     if( response !== null && response !== undefined ) return response.json()
                 })
@@ -36,7 +36,7 @@ export const ProductsList = () => {
 
         if( searchedProduct !== undefined && searchedProduct !== null ){
             
-            fetch(`https://api.granujillas.teamcamp.ovh/products/search/${ searchedProduct }`)
+            fetch(`/products/search/${ searchedProduct }`)
                 .then( response => {
                     if( response !== null && response !== undefined ) return response.json()
                 })

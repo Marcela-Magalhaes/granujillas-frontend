@@ -9,7 +9,7 @@ export const CategoriesList = () => {
 
     useEffect(() => {
         
-        fetch(`https://api.granujillas.teamcamp.ovh/categories`)
+        fetch('/categories')
             .then( response => {
                 if( response !== null && response !== undefined) return response.json();
             })

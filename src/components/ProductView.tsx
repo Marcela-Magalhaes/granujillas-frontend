@@ -17,7 +17,7 @@ export const ProductView = () => {
     
 
     useEffect(() => {
-        fetch(`https://api.granujillas.teamcamp.ovh/products/${id}`)
+        fetch(`/products/${id}`)
             .then( response => {
                 if( response !== null && response !== undefined ) return response.json()
             })
@@ -27,7 +27,7 @@ export const ProductView = () => {
 
     const handleAddShopCart = () => {
 
-        fetch('https://api.granujillas.teamcamp.ovh/shopcart', {
+        fetch('/shopcart', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -43,7 +43,7 @@ export const ProductView = () => {
             <div className="row mt-2">
                 <div className="col col-lg-6 col-md-4 col-center text-center mb-2">
                     <div className="card">
-                        <img className='product-img img-fluid m-2' src={`https://api.granujillas.teamcamp.ovh/statics/${product.image}` } alt={`Imagen de ${ product.name }`} />
+                        <img className='product-img img-fluid m-2' src={`/statics/${product.image}` } alt={`Imagen de ${ product.name }`} />
                         <h4 className="card-title">{ product.name }</h4>
                         <p><small><Link to={`/updateProduct/${product._id}`} className="nav-link"><strong>Update Product</strong></Link></small></p>
                         <br />

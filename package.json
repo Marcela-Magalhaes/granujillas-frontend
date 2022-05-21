@@ -13,7 +13,7 @@
   },
   "author": "Marcela-MM",
   "license": "ISC",
-  "proxy": "http://0.0.0.0:3099",
+  "proxy": "https://api.granujillas.teamcamp.ovh",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.0.0",

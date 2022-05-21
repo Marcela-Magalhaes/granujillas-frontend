@@ -40,13 +40,12 @@ export const ProductForm = () => {
 
     useEffect(() => {
         
-        fetch('https://api.granujillas.teamcamp.ovh/categories')
+        fetch('/categories')
             .then( response => {
                 if( response !== null && response !== undefined) return response.json();
             })
             .then( data => {
                 setCategories( data )
-                // console.log('~ data', data);
             })
             
             .catch( error => console.log(error));
@@ -57,7 +56,7 @@ export const ProductForm = () => {
     
         if( id !== undefined){
             setCheckUpdate(1);
-            fetch(`https://api.granujillas.teamcamp.ovh/products/${ id }`)
+            fetch(`/products/${ id }`)
                 .then( response => {
                     if( response !== null && response !== undefined ){
                         return response.json()
@@ -82,38 +81,25 @@ export const ProductForm = () => {
     const handleSubmit = async (product: FormState, file: any, e: React.FormEvent<HTMLFormElement> ) => {
     
         e.preventDefault();  
-
+      
         if( inputValues._id === undefined || inputValues._id === null){
             // Multer upload
              const data = new FormData();
-             
              data.append('image', file);
-            //  console.log('~ data', data);
-            const serverResponse = await fetch('https://api.granujillas.teamcamp.ovh/images', {
+             
+            await fetch('/images', {
                 method: 'POST',
                 body: data
             });
-            console.log('~ file', file.originalname);
-            console.log('~ serverResponse', serverResponse);
-
+            product.image = String(file.name);
+      
             // AddProduct
-            const { status } = await fetch('https://api.granujillas.teamcamp.ovh/products', {
+            const { status } = await fetch('/products', {
             
                 method: 'POST',
-                headers: {
-                    'Accept': '*/*',
-                    'Content-Type': 'multipart/form-data; application/json'
-                },
-                body: JSON.stringify({
-                    name: product.name,
-                    price: product.price,
-                    image: file.originalname,
-                    description: product.description,
-                    category: product.category
-                })
-               
+                body: JSON.stringify( product )
             });
-            console.log('product', product);
+            
             
             if( status === 200 ) setCheckForm(1);
 
@@ -126,7 +112,17 @@ export const ProductForm = () => {
             
             if( id !== undefined){
                // Update product
-                await fetch(`https://api.granujillas.teamcamp.ovh/products/${id}`, {
+               // Multer
+               const data = new FormData();
+               data.append('image', file);
+               
+              await fetch('/images', {
+                  method: 'POST',
+                  body: data
+              });
+              product.image = String(file.name);
+
+                await fetch(`/products/${id}`, {
         
                     method: 'PUT',
                     headers: {
@@ -141,7 +137,6 @@ export const ProductForm = () => {
                         category: product.category
                     })
                 })
-                // console.log('product.image update', product.image);
                 navigate(`/product/${product._id}`);
               
             }       
