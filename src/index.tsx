@@ -14,6 +14,7 @@ import { ProductForm } from 'components/ProductForm';
 import { SignUp } from 'components/SignUp';
 import { Login } from 'components/Login';
 import { NotFound } from 'components/NotFound';
+import { CategoryForm } from 'components/CategoryForm';
 
 
 
@@ -31,6 +32,7 @@ ReactDOM.render(
                 <Route path='/payment'  element={ [ <App />, <PasarelaPago />]}/>
                 <Route path='/productForm' element={[ <App />, <ProductForm /> ]} />
                 <Route path='/updateProduct/:id' element={[ <App />, <ProductForm /> ]} />
+                <Route path='/categoryForm' element={[ <App />, <CategoryForm />]}/>
                 <Route path='/signup' element={[ <App />, <SignUp /> ]} />
                 <Route path='/login' element={[ <App />, <Login /> ]} />
                 <Route path='*' element={ [<App />, <NotFound />]} />
